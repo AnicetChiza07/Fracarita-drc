@@ -40,7 +40,7 @@ export async function POST(request: Request) {
         const realisation = await prisma.realisation.create({
             data: {
                 title,
-                description: description || null,
+                description: description?.trim() || "Aucune description fournie.",
                 location,
                 eventDate: new Date(eventDate),
                 imageUrl,

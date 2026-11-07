@@ -45,7 +45,7 @@ export async function PUT(request: Request, context: { params: Promise<{ id: str
             where: { id },
             data: {
                 title,
-                description: description || null,
+                description: description?.trim() || "Aucune description fournie.",
                 location,
                 eventDate: new Date(eventDate),
                 imageUrl,
