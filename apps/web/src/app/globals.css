@@ -1,0 +1,231 @@
+/* 1. Imports de polices Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+
+/* 2. Import de Tailwind CSS v4 */
+@import "tailwindcss";
+
+/* 3. Configuration du thème Fracarita */
+@theme {
+    /* Couleurs */
+    --color-lime: #C8E047;
+    --color-lime-dark: #A8C22B;
+    --color-dark: #1A1F1A;
+    --color-darker: #0A0D0A;
+    --color-cream: #F5F5EE;
+    --color-text: #2C332C;
+    --color-text-light: #6B756B;
+    
+    /* Polices */
+    --font-serif: "Instrument Serif", serif;
+    --font-sans: "Questrial", sans-serif;
+}
+
+/* 4. Styles de base */
+@layer base {
+    * {
+        @apply border-gray-200;
+    }
+    
+    body {
+        @apply bg-white text-text font-sans antialiased;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-serif leading-tight;
+    }
+}
+
+/* 5. Classe container personnalisée */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: clamp(16px, 4vw, 25px);
+}
+
+/* 6. Animations et utilitaires */
+@layer utilities {
+    /* ========== FADE IN UP ANIMATION ========== */
+    .fade-in-up {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: slideUp 0.8s ease forwards;
+    }
+    
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+    .delay-4 { animation-delay: 0.8s; }
+    
+    /* ========== REVEAL ANIMATION (Intersection Observer) ========== */
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    
+    /* ========== PULSE ANIMATION ========== */
+    @keyframes pulse {
+        0%, 100% { 
+            opacity: 1; 
+            transform: scale(1); 
+        }
+        50% { 
+            opacity: 0.6; 
+            transform: scale(1.3); 
+        }
+    }
+    
+    .animate-pulse {
+        animation: pulse 2s ease-in-out infinite;
+    }
+    
+    /* ========== MARQUEE ANIMATION ========== */
+    @keyframes marqueeScroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+    
+    .animate-marquee {
+        animation: marqueeScroll 40s linear infinite;
+    }
+    
+    .animate-marquee:hover {
+        animation-play-state: paused;
+    }
+    
+    /* ========== HEARTBEAT ANIMATION ========== */
+    @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+    }
+    
+    .animate-heartbeat {
+        animation: heartbeat 2s ease-in-out infinite;
+    }
+    
+    /* ========== SLIDE UP ANIMATION ========== */
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+/* ========== ANIMATIONS CARRÉS FLOTTANTS (CONTACT) ========== */
+@keyframes floatSquare1 {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+    50% { transform: translateY(-15px) rotate(10deg); opacity: 1; }
+}
+@keyframes floatSquare2 {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.4; }
+    50% { transform: translateY(12px) rotate(-8deg); opacity: 0.8; }
+}
+@keyframes floatSquare3 {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(15deg); }
+}
+
+.animate-float-1 { animation: floatSquare1 6s ease-in-out infinite; }
+.animate-float-2 { animation: floatSquare2 8s ease-in-out infinite; }
+.animate-float-3 { animation: floatSquare3 7s ease-in-out infinite; }
+.animate-float-4 { animation: floatSquare1 9s ease-in-out infinite reverse; }
+.animate-float-5 { animation: floatSquare2 5s ease-in-out infinite; }
+
+/* ========== MARQUEE ANIMATION ========== */
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-marquee {
+    animation: marquee 30s linear infinite;
+}
+
+/* ========== SKELETON ANIMATION ========== */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.skeleton-shimmer {
+    background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.06) 0%,
+        rgba(0, 0, 0, 0.12) 50%,
+        rgba(0, 0, 0, 0.06) 100%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite linear;
+}
+
+/* ==========================================
+   SCROLLBAR PROFESSIONNELLE & MODERNE
+   ========================================== */
+
+/* Pour Chrome, Edge, Safari et Opera */
+::-webkit-scrollbar {
+  width: 5px;      /* Largeur fine */
+  height: 5px;     /* Hauteur fine pour le scroll horizontal */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Fond invisible */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1; /* Gris très clair et doux (Tailwind slate-300) */
+  border-radius: 9999px;     /* Bords parfaitement arrondis */
+  border: 1px solid transparent; /* Astuce pour laisser un petit espace autour */
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8; /* S'assombrit légèrement au survol (slate-400) */
+}
+
+/* Pour Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+/* ==========================================
+   FIX AUTO-FILL NAVIGATEUR (Email / Mot de passe)
+   Empêche Chrome/Edge de mettre un fond blanc
+   ========================================== */
+/* ✅ Fix autofill : force les couleurs noir/blanc même quand le navigateur suggère */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+    -webkit-text-fill-color: #1a1a1a !important; /* Couleur du texte (dark) */
+    -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important; /* Fond blanc */
+    transition: background-color 5000s ease-in-out 0s;
+}

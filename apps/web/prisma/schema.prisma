@@ -1,0 +1,257 @@
+// Configuration du générateur Prisma
+generator client {
+    provider = "prisma-client-js"
+}
+
+// Configuration de la base de données
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+// ==========================================
+// ÉNUMÉRATIONS (Types fixes)
+// ==========================================
+
+enum Role {
+    SUPER_ADMIN
+    EDITOR
+    VIEWER
+}
+
+enum OpportunityType {
+    JOB
+    INTERNSHIP
+    TENDER
+}
+
+enum ReportType {
+    ANNUAL
+    FINANCIAL
+    IMPACT
+}
+
+// ==========================================
+// MODÈLES (Tables)
+// ==========================================
+
+// 1. Utilisateurs (Administrateurs)
+model User {
+    id           String   @id @default(cuid())
+    name         String   @default("Administrateur")
+    email        String   @unique
+    passwordHash String   @map("password_hash")
+    role         Role     @default(EDITOR)
+    isActive     Boolean  @default(true)
+    createdAt    DateTime @default(now()) @map("created_at")
+    updatedAt    DateTime @updatedAt @map("updated_at")
+
+    // Relations
+    articles     Article[]
+
+    @@index([email])
+    @@map("users")
+}
+
+// 2. Catégories (Dynamiques, gérées par l'admin)
+model Category {
+    id          String   @id @default(cuid())
+    name        String
+    slug        String   @unique
+    description String?  @db.Text
+    createdAt   DateTime @default(now()) @map("created_at")
+    updatedAt   DateTime @updatedAt @map("updated_at")
+
+    // Relations
+    articles      Article[]
+    opportunities Opportunity[]
+    realisations  Realisation[]
+
+    @@index([slug])
+    @@map("categories")
+}
+
+// 3. Articles (Blog / Actualités)
+model Article {
+    id          String   @id @default(cuid())
+    title       String
+    slug        String   @unique
+    excerpt     String?  @db.Text
+    content     Json     // Contenu Tiptap (JSON)
+    coverImage  String?  @map("cover_image") // URL Uploadthing
+    isPublished Boolean  @default(false) @map("is_published")
+    isFeatured  Boolean  @default(false) @map("is_featured")
+    publishedAt DateTime? @map("published_at")
+    views       Int      @default(0)
+    authorId    String   @map("author_id")
+    categoryId  String   @map("category_id")
+    createdAt   DateTime @default(now()) @map("created_at")
+    updatedAt   DateTime @updatedAt @map("updated_at")
+
+    // Relations
+    author   User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+    category Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+
+    @@index([slug])
+    @@index([isPublished])
+    @@index([categoryId])
+    @@index([publishedAt])
+    @@map("articles")
+}
+
+// 4. Opportunités (Offres d'emploi, stages, appels d'offres)
+model Opportunity {
+    id               String           @id @default(cuid())
+    title            String
+    slug             String           @unique
+    type             OpportunityType
+    location         String
+    contractType     String?          @map("contract_type")
+    experienceLevel  String?          @map("experience_level")
+    description      Json
+    coverImage       String?          @map("cover_image")
+    deadline         DateTime?
+    pdfName          String?          @map("pdf_name")    // ✅ AJOUTÉ pour le vrai nom
+    pdfUrl           String?          @map("pdf_url")
+    pdfSize          String?          @map("pdf_size")
+    isPublished      Boolean          @default(false) @map("is_published")
+    categoryId       String           @map("category_id")
+    createdAt        DateTime         @default(now()) @map("created_at")
+    updatedAt        DateTime         @updatedAt @map("updated_at")
+
+    category Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+
+    @@index([slug])
+    @@index([isPublished])
+    @@index([deadline])
+    @@map("opportunities")
+}
+
+// 5. Rapports (Documents PDF)
+model ReportCategory {
+    id        String   @id @default(cuid())
+    name      String
+    slug      String   @unique
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    reports Report[]
+
+    @@index([slug])
+    @@map("report_categories")
+}
+
+model Report {
+    id          String    @id @default(cuid())
+    title       String
+    year        Int
+    description String?   @db.Text
+    pdfName     String?   @map("pdf_name")
+    pdfUrl      String?   @map("pdf_url")
+    pdfSize     String?   @map("pdf_size")
+    coverImage  String?   @map("cover_image")
+    isPublished Boolean   @default(false) @map("is_published")
+    categoryId  String    @map("category_id")
+    createdAt   DateTime  @default(now()) @map("created_at")
+    updatedAt   DateTime  @updatedAt @map("updated_at")
+
+    category ReportCategory @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+
+    @@index([year])
+    @@index([categoryId])
+    @@index([isPublished])
+    @@map("reports")
+}
+
+// 6. Réalisations (Projets terrain)
+model Realisation {
+    id          String    @id @default(cuid())
+    title       String
+    description String    @db.Text
+    location    String
+    eventDate   DateTime  @map("event_date") // Date précise de l'événement
+    imageUrl    String    @map("image_url")  // URL Uploadthing
+    categoryId  String    @map("category_id")
+    createdAt   DateTime  @default(now()) @map("created_at")
+    updatedAt   DateTime  @updatedAt @map("updated_at")
+
+    // Relations
+    category Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+
+    @@index([eventDate])
+    @@index([categoryId])
+    @@map("realisations")
+}
+
+// 7. Témoignages (Sans image, juste texte et initiales)
+model Testimonial {
+    id         String   @id @default(cuid())
+    quote      String   @db.Text
+    authorName String   @map("author_name")
+    role       String
+    location   String
+    initials   String   @default("") // ex: "MK"
+    createdAt  DateTime @default(now()) @map("created_at")
+    updatedAt  DateTime @updatedAt @map("updated_at")
+
+    @@map("testimonials")
+}
+
+// 8. Partenaires (Logos uniquement avec ordre d'affichage)
+model Partner {
+    id        String   @id @default(cuid())
+    logoUrl   String   @map("logo_url") // URL Uploadthing
+    order     Int      @default(0)      // Ordre d'affichage sur le site public
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@index([order])
+    @@map("partners")
+}
+
+// 9. Secteurs d'intervention
+model Sector {
+    id          String   @id @default(cuid())
+    name        String
+    slug        String   @unique
+    subtitle    String
+    description String   @db.Text
+    imageUrl    String   @map("image_url") // URL Uploadthing
+    stats       Json     // ex: [{"value": "500+", "label": "Femmes formées"}]
+    createdAt   DateTime @default(now()) @map("created_at")
+    updatedAt   DateTime @updatedAt @map("updated_at")
+
+    @@index([slug])
+    @@map("sectors")
+}
+
+// 10. Messages (Formulaire de contact)
+model Message {
+    id        String    @id @default(cuid())
+    name      String
+    email     String
+    subject   String
+    content   String    @db.Text
+    isRead    Boolean   @default(false) @map("is_read")
+    repliedAt DateTime? @map("replied_at")
+    createdAt DateTime  @default(now()) @map("created_at")
+    updatedAt DateTime  @updatedAt @map("updated_at")
+
+    @@index([isRead])
+    @@index([email])
+    @@map("messages")
+}
+
+// 11. Paramètres Globaux (Infos du site, footer, header)
+model GlobalSettings {
+    id              String   @id @default("global_settings_id") // ID fixe, un seul enregistrement
+    siteName        String   @default("FRACARITA RDC") @map("site_name")
+    siteDescription String?  @db.Text @map("site_description")
+    contactEmail    String   @map("contact_email")
+    contactPhone    String   @map("contact_phone")
+    contactAddress  String   @map("contact_address")
+    socialLinks     Json     @default("{}") @map("social_links")
+    updatedAt       DateTime @updatedAt @map("updated_at")
+
+    @@map("global_settings")
+}
