@@ -3,10 +3,8 @@
 import { useState } from 'react';
 import { Mail, Lock, ArrowRight, Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 
 export default function AdminLoginPage() {
-    const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -24,6 +22,7 @@ export default function AdminLoginPage() {
             const response = await fetch('/api/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
+                credentials: 'same-origin',
                 body: JSON.stringify({ email, password }),
             });
 
@@ -31,37 +30,35 @@ export default function AdminLoginPage() {
 
             if (!response.ok) {
                 setError(data.error || 'Une erreur est survenue');
+                setIsLoading(false);
                 return;
             }
 
             setSuccess('Connexion réussie ! Redirection...');
-            
+
+            // Rechargement complet : le cookie est envoyé et le cache de navigation est ignoré
             setTimeout(() => {
-                router.push('/admin/dashboard');
-                router.refresh();
+                window.location.href = '/admin/dashboard';
             }, 800);
-            
         } catch (err) {
             console.error(err);
             setError('Erreur de connexion au serveur');
-        } finally {
             setIsLoading(false);
         }
     };
 
     return (
-        // ✅ fixed inset-0 force cette div à couvrir 100% de l'écran, masquant tout fond blanc du layout
         <div className="fixed inset-0 w-full h-screen bg-dark overflow-hidden flex items-center justify-center py-12 px-4">
-            
+
             {/* Motif de grille subtil */}
-            <div 
-                className="absolute inset-0 pointer-events-none opacity-20" 
-                style={{ 
-                    backgroundImage: 'linear-gradient(rgba(200, 224, 71, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(200, 224, 71, 0.04) 1px, transparent 1px)', 
-                    backgroundSize: '60px 60px' 
-                }} 
+            <div
+                className="absolute inset-0 pointer-events-none opacity-20"
+                style={{
+                    backgroundImage: 'linear-gradient(rgba(200, 224, 71, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(200, 224, 71, 0.04) 1px, transparent 1px)',
+                    backgroundSize: '60px 60px'
+                }}
             />
-            
+
             {/* Glows décoratifs */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-lime/5 rounded-full blur-[120px] pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-lime/5 rounded-full blur-[120px] pointer-events-none" />
@@ -69,12 +66,12 @@ export default function AdminLoginPage() {
             {/* Card de connexion */}
             <div className="relative z-10 w-full max-w-md">
                 <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 sm:p-10">
-                    
+
                     {/* Logo */}
                     <div className="flex justify-center mb-6">
-                        <Image 
-                            src="/logo-clair.png" 
-                            alt="Logo Fracarita" 
+                        <Image
+                            src="/logo-clair.png"
+                            alt="Logo Fracarita"
                             width={150}
                             height={0}
                             className="h-12 sm:h-14 w-auto object-contain"
