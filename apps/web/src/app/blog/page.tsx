@@ -1,6 +1,9 @@
 import { PrismaClient } from '@prisma/client';
 import BlogClient from './BlogClient';
 
+// ✅ CETTE LIGNE DIT À NEXT.JS DE TOUJOURS ALLER CHERCHER LES DONNÉES LES PLUS RÉCENTES
+export const dynamic = 'force-dynamic';
+
 const prisma = new PrismaClient();
 
 // Fonction pour formater la date
@@ -49,7 +52,7 @@ export default async function BlogPage() {
         title: featuredArticle.title,
         excerpt: featuredArticle.excerpt || 'Découvrez les détails de cette action sur le terrain.',
         authorName: featuredArticle.author?.name || 'Équipe Fracarita',
-        authorRole: 'Direction', // Tu pourras ajouter un champ role dans Prisma si besoin
+        authorRole: 'Direction', 
         authorInitials: featuredArticle.author?.name ? featuredArticle.author.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'EF',
         image: featuredArticle.coverImage,
     } : null;
