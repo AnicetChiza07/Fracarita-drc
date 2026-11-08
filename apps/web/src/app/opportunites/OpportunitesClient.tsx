@@ -74,13 +74,13 @@ export default function OpportunitesClient({ initialOpportunities, initialFilter
                 titleAfter="."
                 description={`Rejoignez une équipe engagée au service des communautés congolaises. Mettez vos compétences au profit d'une mission qui a du sens.`}
                 breadcrumbCurrent="Opportunités"
-                bgImage="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1920&q=80"
+                bgImage="/images/job.jpg"
             />
 
             <section className="py-20 lg:py-32 bg-white">
                 <div className="container">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                        <div className={`${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} transition-all duration-700`}>
+                        <div className={`${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} transition-all duration-300`}>
                             <div className="flex items-center gap-3 mb-5">
                                 <div className="w-6 h-0.5 bg-lime"></div>
                                 <span className="font-sans text-xs font-semibold text-lime-dark uppercase tracking-[0.15em]">Pourquoi nous rejoindre</span>
@@ -98,7 +98,7 @@ export default function OpportunitesClient({ initialOpportunities, initialFilter
 
                         <div className={`relative rounded-3xl overflow-hidden aspect-[4/5] lg:aspect-auto lg:h-[500px] group ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} transition-all duration-700 delay-200`}>
                             <Image 
-                                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80" 
+                                src="/images/travail.jpg" 
                                 alt="Équipe FRACARITA" 
                                 fill 
                                 className="object-cover transition-transform duration-700 group-hover:scale-105"

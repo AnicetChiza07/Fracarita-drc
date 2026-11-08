@@ -127,7 +127,7 @@ export default function AboutVolunteer() {
                             
                             {/* Image qui remplit parfaitement le conteneur */}
                             <Image 
-                                src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=800&q=80" 
+                                src="/images/volontaire-fracarita.jpg" 
                                 alt="Volontaires en action" 
                                 fill 
                                 className="object-cover transition-transform duration-[2s] ease-out group-hover:scale-105" 

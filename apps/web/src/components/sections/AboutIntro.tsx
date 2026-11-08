@@ -44,7 +44,7 @@ export default function AboutIntro() {
                             {/* Image Principale (Grande, circulaire) */}
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[75%] h-[75%] rounded-full overflow-hidden shadow-xl border-8 border-white z-10">
                                 <Image 
-                                    src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&q=80" 
+                                    src="/images/about-fracarita.jpg" 
                                     alt="Frères de la Charité" 
                                     fill 
                                     className="object-cover transition-transform duration-[2s] ease-out hover:scale-110" 
@@ -55,7 +55,7 @@ export default function AboutIntro() {
                             {/* Image Secondaire (Plus petite, superposée en bas à droite) */}
                             <div className="absolute bottom-8 right-8 w-[45%] h-[45%] rounded-full overflow-hidden border-8 border-white shadow-lg z-20 group">
                                 <Image 
-                                    src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=600&q=80" 
+                                    src="/images/about-kit.jpg" 
                                     alt="Action sur le terrain" 
                                     fill 
                                     className="object-cover transition-transform duration-[2s] ease-out group-hover:scale-110" 

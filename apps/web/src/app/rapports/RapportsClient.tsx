@@ -72,7 +72,7 @@ export default function RapportsClient({ initialReports }: RapportsClientProps) 
                 titleAfter="d'activité."
                 description={`Découvrez en toute transparence l'utilisation de vos contributions, nos résultats sur le terrain et l'impact réel de nos actions à travers la RDC.`}
                 breadcrumbCurrent="Rapports"
-                bgImage="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1920&q=80"
+                bgImage="/images/rapports.jpg"
             />
 
             <section ref={sectionRef} className="py-20 lg:py-32 bg-white">

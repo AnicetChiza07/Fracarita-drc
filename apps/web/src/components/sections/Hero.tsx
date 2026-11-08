@@ -13,7 +13,7 @@ const slides = [
         titleEnd: 'pour tous.',
         description: "De l'éducation à la santé communautaire, nous accompagnons les familles vulnérables de la RDC vers un avenir plus digne.",
         buttonText: 'Commencer',
-        image: 'https://images.unsplash.com/photo-1593113598332-cd288d649433?w=1920&q=80',
+        image: '/images/humanitaire.jpg',
     },
     {
         badge: 'Éducation pour Tous',
@@ -22,7 +22,7 @@ const slides = [
         titleEnd: 'de qualité.',
         description: "Nous construisons des écoles et formons des enseignants dans les zones rurales pour offrir un avenir brillant à la prochaine génération.",
         buttonText: 'Nos Projets',
-        image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&q=80',
+        image: '/images/éducation.jpg',
     },
     {
         badge: 'Santé Communautaire',
@@ -31,7 +31,7 @@ const slides = [
         titleEnd: ', pas un privilège.',
         description: "Nos caravanes médicales mobiles apportent des soins gratuits dans les zones les plus isolées de la République Démocratique du Congo.",
         buttonText: 'En savoir plus',
-        image: 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=1920&q=80',
+        image: '/images/santé.jpg',
     },
 ];
 

@@ -95,7 +95,7 @@ export default function BlogClient({ initialFeatured, initialGrid, initialFilter
                 titleAfter="récentes."
                 description={`Suivez nos dernières actions, témoignages et avancées sur le terrain. Chaque article raconte une histoire d'espoir et de transformation.`}
                 breadcrumbCurrent="Actualités"
-                bgImage="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1920&q=80" // Tu pourras mettre une image de ta DB plus tard
+                bgImage="/images/blog.jpg"
             />
 
             {/* 2. Article à la une (Bento Style) */}

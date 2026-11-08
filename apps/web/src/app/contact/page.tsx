@@ -61,7 +61,7 @@ export default function ContactPage() {
                 titleAfter="."
                 description={`Notre équipe est à votre écoute pour répondre à vos questions, discuter de partenariats ou vous accompagner dans vos démarches.`}
                 breadcrumbCurrent="Contact"
-                bgImage="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&q=80"
+                bgImage="/images/contact.jpg"
             />
 
             {/* 2. Section Formulaire & Infos */}

@@ -24,7 +24,7 @@ export default async function AboutPage() {
                 titleAfter="au service des communautés."
                 description="Depuis 2015, FRACARITA RDC œuvre aux côtés des familles vulnérables pour bâtir un avenir plus digne à travers l'éducation, la santé et l'autonomisation."
                 breadcrumbCurrent="À Propos"
-                bgImage="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&q=80"
+                bgImage="/images/volontaire.jpg"
             />
 
             {/* 2. Sections modulaires */}

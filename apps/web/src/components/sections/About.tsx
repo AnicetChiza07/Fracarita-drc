@@ -17,7 +17,7 @@ export default function About() {
                             {/* Image Principale (span 2 rows) */}
                             <div className="row-span-2 rounded-3xl overflow-hidden relative bg-cream group">
                                 <Image
-                                    src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&q=80"
+                                    src="/images/home-about-fracarita.jpg"
                                     alt="Équipe Fracarita"
                                     fill
                                     className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -43,7 +43,7 @@ export default function About() {
                             <div className="bg-cream rounded-2xl overflow-hidden relative flex flex-col group cursor-pointer transition-all duration-300 hover:bg-lime hover:-translate-y-1">
                                 <div className="flex-1 relative overflow-hidden">
                                     <Image
-                                        src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=400&q=80"
+                                        src="/images/intro-about.jpg"
                                         alt="Action terrain"
                                         fill
                                         className="object-cover transition-transform duration-500 group-hover:scale-110"
