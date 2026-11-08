@@ -1,6 +1,9 @@
 import { PrismaClient } from '@prisma/client';
 import RapportsClient from './RapportsClient';
 
+// ✅ CETTE LIGNE GARANTIT QUE LES NOUVEAUX RAPPORTS APPARAISSENT IMMÉDIATEMENT
+export const dynamic = 'force-dynamic';
+
 const prisma = new PrismaClient();
 
 type MappedReport = {
@@ -32,7 +35,6 @@ export default async function RapportsPage() {
         const reportType = report.category?.name || 'Document';
         
         // ✅ Génération d'un slug unique et propre à partir du titre et de l'ID
-        // (Ex: "rapport-annuel-2026-cld123456789")
         const generatedSlug = report.title
             .toLowerCase()
             .replace(/[^a-z0-9]+/g, '-')

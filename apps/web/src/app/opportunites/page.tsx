@@ -1,6 +1,9 @@
 import { PrismaClient } from '@prisma/client';
 import OpportunitesClient from './OpportunitesClient';
 
+// ✅ CETTE LIGNE GARANTIT QUE LES NOUVELLES OPPORTUNITÉS APPARAISSENT IMMÉDIATEMENT
+export const dynamic = 'force-dynamic';
+
 const prisma = new PrismaClient();
 
 type MappedOpportunity = {
