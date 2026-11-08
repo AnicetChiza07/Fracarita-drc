@@ -7,31 +7,34 @@ import Image from 'next/image';
 
 const slides = [
     {
-        badge: 'Organisation Humanitaire',
-        title: 'Ensemble, construisons un avenir',
-        highlight: 'meilleur',
-        titleEnd: 'pour tous.',
-        description: "De l'éducation à la santé communautaire, nous accompagnons les familles vulnérables de la RDC vers un avenir plus digne.",
-        buttonText: 'Commencer',
+        badge: 'Depuis 1807',
+        title: 'Une présence qui traverse les',
+        highlight: 'siècles',
+        titleEnd: 'pour transformer des vies.',
+        description: "Les Frères de la Charité s'engagent aux côtés des plus vulnérables en RDC, offrant éducation, soins et espoir là où le besoin est le plus grand.",
+        buttonText: 'Qui sommes-nous ?',
+        link: '/a-propos',
         image: '/images/humanitaire.jpg',
     },
     {
-        badge: 'Éducation pour Tous',
-        title: 'Chaque enfant mérite une',
-        highlight: 'éducation',
-        titleEnd: 'de qualité.',
-        description: "Nous construisons des écoles et formons des enseignants dans les zones rurales pour offrir un avenir brillant à la prochaine génération.",
-        buttonText: 'Nos Projets',
-        image: '/images/éducation.jpg',
+        badge: 'Nos Actions',
+        title: 'Agir concrètement dans nos',
+        highlight: 'domaines',
+        titleEnd: "d'intervention.",
+        description: "De l'éducation de qualité aux soins de santé communautaire, nous déployons des programmes durables pour autonomiser les familles congolaises.",
+        buttonText: 'Nos Domaines',
+        link: '/#domaines',
+        image: '/images/education.jpg',
     },
     {
-        badge: 'Santé Communautaire',
-        title: 'La santé est un',
-        highlight: 'droit',
-        titleEnd: ', pas un privilège.',
-        description: "Nos caravanes médicales mobiles apportent des soins gratuits dans les zones les plus isolées de la République Démocratique du Congo.",
-        buttonText: 'En savoir plus',
-        image: '/images/santé.jpg',
+        badge: 'Impact Réel',
+        title: 'Des résultats qui parlent',
+        highlight: "d'eux-mêmes",
+        titleEnd: 'sur le terrain.',
+        description: "Découvrez nos projets achevés et en cours : écoles construites, centres de santé équipés et communautés transformées à travers la RDC.",
+        buttonText: 'Nos Réalisations',
+        link: '/#realisations',
+        image: '/images/sante.jpg',
     },
 ];
 
@@ -39,15 +42,14 @@ export default function Hero() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [animationKey, setAnimationKey] = useState(0);
 
-    // Auto-play toutes les 5 secondes
-        // Auto-play toutes les 5 secondes
-        useEffect(() => {
+    // Auto-play toutes les 6 secondes (6000ms est idéal pour la lecture)
+    useEffect(() => {
         const timer = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % slides.length);
             setAnimationKey((prev) => prev + 1);
-        }, 10000);
+        }, 6000);
         return () => clearInterval(timer);
-        }, []);
+    }, []);
 
     const nextSlide = () => {
         setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -72,7 +74,7 @@ export default function Hero() {
                     <div
                         key={index}
                         className={`absolute inset-0 transition-opacity duration-1000 ease-in-out flex items-center justify-center ${
-                        index === currentSlide ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+                            index === currentSlide ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
                         }`}
                     >
                         {/* Background Image avec Next.js Image pour l'optimisation */}
@@ -84,13 +86,13 @@ export default function Hero() {
                                 className="object-cover"
                                 priority={index === 0}
                             />
-                        {/* Overlays pour la lisibilité */}
+                            {/* Overlays pour la lisibilité */}
                             <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/40 to-black/60" />
                             <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/70" />
                         </div>
 
                         {/* Contenu centré */}
-                        <div className="container relative z-[2] text-center">
+                        <div className="container relative z-[2] text-center px-4">
                             <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
                             
                                 {/* Badge */}
@@ -121,18 +123,18 @@ export default function Hero() {
                                     {slide.description}
                                 </p>
 
-                                {/* Bouton d'action */}
+                                {/* Bouton d'action avec lien dynamique */}
                                 <div
                                     key={`btn-${animationKey}`}
                                     className="fade-in-up delay-3"
                                 >
                                     <Link
-                                        href="/actions"
+                                        href={slide.link}
                                         className="inline-flex items-center gap-2 bg-lime text-dark pl-5 pr-1.5 py-2 rounded-full font-semibold text-sm sm:text-base border-none cursor-pointer transition-all duration-300 hover:bg-white hover:-translate-y-1 group"
                                     >
                                         {slide.buttonText}
-                                        <span className='bg-dark w-8 h-8 flex items-center justify-center rounded-full'>
-                                            <ArrowRight size={14} className="text-lime" />
+                                        <span className='bg-dark w-8 h-8 flex items-center justify-center rounded-full group-hover:bg-lime transition-colors duration-300'>
+                                            <ArrowRight size={14} className="text-lime group-hover:text-dark transition-colors duration-300" />
                                         </span>
                                     </Link>
                                 </div>

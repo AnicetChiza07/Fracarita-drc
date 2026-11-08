@@ -53,8 +53,12 @@ export default async function Home() {
             <Hero />
             <Stats />
             <About />
-            <Sectors initialSectors={sectorsData || []} />
-            <Realisations initialRealisations={realisationsData || []} />
+            <div id="domaines">
+                <Sectors initialSectors={sectorsData || []} />
+            </div>
+            <div id="realisations">
+                <Realisations initialRealisations={realisationsData || []} />
+            </div>
             <Articles initialArticles={articlesData || []} />
             <Testimonials initialTestimonials={testimonialsData || []} />
             <Partners initialPartners={partnersData || []} />

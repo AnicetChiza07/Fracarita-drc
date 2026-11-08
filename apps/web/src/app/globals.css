@@ -36,6 +36,11 @@
     }
 }
 
+html {
+    scroll-behavior: smooth; /* Active le défilement fluide pour toute la page */
+    /* scroll-padding-top: 80px; */
+}
+
 /* 5. Classe container personnalisée */
 .container {
     width: 100%;
